@@ -40,9 +40,9 @@ const Connect = () => {
         <div className={styles.card}>
             {(
                 <div className={styles.container}>
-                <div className={styles.heading}> Connect Facebook </div>
+                <div className={styles.heading}> Facebook Page Integration </div>
                 <div>
-                    <button onClick={signinwithfb} className={styles.submitButton}>Connect your Facebook Account</button>
+                    <button onClick={signinwithfb} className={styles.submitButton}>Connect Page</button>
                 </div>
             </div>
             )}

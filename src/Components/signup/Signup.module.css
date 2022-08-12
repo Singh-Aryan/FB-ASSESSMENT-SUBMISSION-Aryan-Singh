@@ -1,9 +1,9 @@
 .card{
-    width: 15%;
+    width: 23%;
     background-color: white;
     margin: auto;
     padding: 2rem;
-    border-radius: 2rem;
+    border-radius: 1rem;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -49,16 +49,18 @@
 }
 
 .submitButton{
-    background-color: #2764b8;
+    background-color: #114793;
     color:white;
     cursor: pointer;
     width: 100%;
     border: none;
+    border-radius: 3px;
     padding: 0.5rem;
     
 }
 
 .centeredtag{
+    font-size: 13px;
     display: flex;
     justify-content: center;
 }

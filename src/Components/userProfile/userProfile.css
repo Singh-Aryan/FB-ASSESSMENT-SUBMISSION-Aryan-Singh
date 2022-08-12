@@ -69,7 +69,7 @@
     padding: 15px 20px;
     color: #6d6a6a;
     font-size: 14px;
-    display: none;
+    display: block;
     transform-origin: top;
     animation-name: showIn;
     animation-duration: 0.2s; /* or: Xms */
@@ -84,9 +84,14 @@
     animation-fill-mode: both; /* or: backwards, both, none */
     animation-delay: 0.2s; /* or: Xms */
   }
-  .profile__card.open .card__content {
+  .profile__card.open{
     display: block;
   }
   .profile__card.open .card__header i:before {
     content: "\f106";
+  }
+
+  .info{
+    font-weight: bold;
+    color: black;
   }
