@@ -23,7 +23,7 @@ const db = firebase.firestore();
 
 const logInWithEmailAndPassword = (email, password) => {
     signInWithEmailAndPassword(auth, email, password).then(function(){
-    // window.location.href= `${window.location.href}plans`;
+    window.location.href= `${window.location.href}connect`;
     }).catch(function(error){
     var errorMsg=error.message;
     window.alert("Error : " +errorMsg)

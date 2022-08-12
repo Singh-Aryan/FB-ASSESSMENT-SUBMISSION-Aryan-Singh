@@ -33,7 +33,7 @@ const Signup = () => {
         else
         {
             logInWithEmailAndPassword(email, password);
-            navigate("/connect")
+            
         }
     };
     const [currentComp, setCurrentComponent] = useState('signup');
