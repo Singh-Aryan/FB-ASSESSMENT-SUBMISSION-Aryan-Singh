@@ -8,9 +8,10 @@ import axios from 'axios';
 
 function sendmsgtouser(recipentid, text)
 {
-  var options = {
+   var access_token = "EAANK1zVBtcoBAO9eyM35LcXgiYc"+"NSmbqFN40nq0NdHmbhyf68hcQx85tEd4it"+"nYUl2qWZBvdGA0rflkBCN8Ym1P220EjT"+"e1gKp3rRZB2Jlt4vZAsuZARWpobLNep56de"+"GCtYhMyxsGwF5WbFZA4k0aiVWmS5A9utBnev16Hdx"+"0BZAMP4kZBLrpL";
+   var options = {
     method: 'POST',
-    url: `https://graph.facebook.com/v14.0/me/messages?access_token=EAANK1zVBtcoBAEDkCSUdQEgnEGHFtirynwRNTFDJn5uwyJSYUwLmoCVkJiPRvXv9t2iWmXcu2ur3AdXidxvbXNaZCZCM8apictl8gHzFudus9ufJMd6Goao87l3gZCUsMrEKCN7gXe9DVFabsOIZAJKVDu9o4OQiSioWyEZCnWMCG3ZBmQp6vy`,
+    url: `https://graph.facebook.com/v14.0/me/messages?access_token=${access_token}`,
     data: {
       messaging_type: 'Response',
       recipient: {id: recipentid},
