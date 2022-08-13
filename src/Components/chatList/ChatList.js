@@ -3,30 +3,27 @@ import "./chatList.css";
 import ChatListItems from "./ChatListItems";
 import {HiOutlineMenuAlt1} from "react-icons/hi";
 import {AiOutlineReload} from "react-icons/ai";
-
-
+import { ref, onChildAdded, onValue} from "firebase/database";
+import { rdb } from "../../firebase"
 export default class ChatList extends Component {
   allChatUsers = [
     {
-      id: 1,
-      name: "Amit RG",
-      active: true,
-      isOnline: true,
+      name: "",
+      time: ""
     },
-    {
-      id: 2,
-      name: "Hiten Saxena",
-      message:"Awesome Product",
-      active: false,
-      isOnline: false,
-    },
-
   ];
   constructor(props) {
     super(props);
     this.state = {
       allChats: this.allChatUsers,
     };
+
+    const dbref = ref(rdb, "messages"); 
+    onChildAdded(dbref, (snapshot) => {
+      localStorage.setItem('Name', `${snapshot.val().first_name}`);
+      localStorage.setItem('Time', `${snapshot.val().time}`);
+      localStorage.setItem('Message', `${snapshot.val().message}`);
+   })
   }
   render() {
     return (
@@ -36,19 +33,14 @@ export default class ChatList extends Component {
           <span className="Convo"> Conversation</span>
           <i className="logo2"><AiOutlineReload></AiOutlineReload></i>
           </div>
-          
-        
-        
         <div className="chatlist__items">
           {this.state.allChats.map((item, index) => {
             return (
               <ChatListItems
-                name={item.name}
-                key={item.id}
+                name={localStorage.getItem('Name')}
                 animationDelay={index + 1}
-                active={item.active ? "active" : ""}
-                message={item.message}
-                isOnline={item.isOnline ? "active" : ""}
+                time={localStorage.getItem('Time')}
+                message={localStorage.getItem('Message')}
               />
             );
           })}

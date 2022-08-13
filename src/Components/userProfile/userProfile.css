@@ -1,16 +1,17 @@
 .main__userprofile {
-    width: 20%;
-    padding: 0 20px 0 40px;
+    width: 20rem;
+    /* padding: 0 20px 0 40px; */
     transition: all 0.3s ease-in-out;
     overflow: hidden;
     position: relative;
+    align-items: center;
+   
   }
   .profile__card {
     background-color: #fff;
-    width: 100%;
+    width: 26rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items:flex-start;
     flex-direction: column;
     transform: scale(0);
     animation-name: showIn;
@@ -28,7 +29,7 @@
     margin-bottom: 15px;
   }
   .profile__card.user__profile__image {
-    padding: 20px 20px;
+    padding: 20px 120px;
   }
   .profile__card .profile__image {
     width: 100px;
@@ -42,6 +43,7 @@
   }
   .profile__card h4 {
     margin-bottom: 0;
+    padding-left: 20PX;
   }
   .profile__card p {
     margin-top: 10px;
@@ -51,6 +53,7 @@
   .profile__card .card__header {
     display: flex;
     justify-content: space-between;
+    border-radius: 10px;
     align-items: center;
     width: 100%;
     cursor: pointer;

@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import { getDatabase, ref, set } from 'firebase/database';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -16,10 +17,14 @@ const firebaseConfig = {
   appId: "1:946133449102:web:42073e58c0ac4e07d08cdf"
   };
   
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
+const app = firebase.initializeApp(firebaseConfig);
+const auth = getAuth(app);
 // const db = getFirestore(app);
 const db = firebase.firestore();
+
+const rdb = getDatabase(app);
+
+// var rdb = firebase.database().ref("messages");
 
 const logInWithEmailAndPassword = (email, password) => {
     signInWithEmailAndPassword(auth, email, password).then(function(){
@@ -57,6 +62,7 @@ const sendPasswordReset = async (email) => {
 export {
   auth,
   db,
+  rdb,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset

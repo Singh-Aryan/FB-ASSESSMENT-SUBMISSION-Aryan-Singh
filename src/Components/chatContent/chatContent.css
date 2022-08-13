@@ -1,16 +1,18 @@
 .main__chatcontent {
     flex-grow: 1;
-    padding: 20px 40px;
-    max-width: 63%;
+    background-color: #d8d8d8;
+    width: 45rem;
     border-right: 1px solid #ebe7fb;
   }
   .content__header {
     padding-bottom: 15px;
-    border-bottom: 1px solid #ebe7fb;
+    border-bottom: 1px solid #e4e4e9;
   }
   .current-chatting-user {
     display: flex;
     align-items: center;
+    padding-left: 12px;
+    padding-top: 10px;
   }
   .current-chatting-user p {
     margin: 0;
@@ -18,6 +20,7 @@
   }
   .content__header {
     display: flex;
+    background-color: #fff;
     justify-content: space-between;
     align-items: center;
   }
@@ -25,14 +28,16 @@
     color: #000;
   }
   .content__body {
-    max-height: calc(100vh - calc(100vh / 2));
-    overflow: auto;
+    max-height: 78vh;
+    overflow: overlay;
   }
   .chat__item {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     margin-bottom: 15px;
+    margin-top: 10px;
+    padding-right: 15px;
     transition: all 0.3s ease;
     transform: scale(0);
     transform-origin: right;
@@ -64,10 +69,10 @@
     padding: 1px;
   }
   .chat__item__content {
-    background-color: #4462ff;
-    color: #fff;
+    background-color: #fff;
+    color:black;
     padding: 15px;
-    border-radius: 10px 10px 0 10px;
+    border-radius: 8px 8px 8px 8px;
     max-width: 50%;
     min-width: 215px;
   }
@@ -88,11 +93,12 @@
   .chat__item.other {
     flex-direction: row-reverse;
     transform-origin: left;
+    padding-left: 15px;
   }
   .chat__item.other .chat__item__content {
     background-color: #fff;
     color: #000;
-    border-radius: 10px 10px 10px 0;
+    border-radius: 8px 8px 8px 8px;
     max-width: 50%;
   }
   .chat__item.other .avatar {
@@ -103,15 +109,19 @@
     color: #d1d1d1;
   }
   .content__footer {
-    padding-top: 10px;
+    padding-top: 50px;
     margin-top: 50px;
+    padding-left: 50px;
   }
   .sendNewMessage {
     background-color: #fff;
     display: flex;
+    position: absolute;
     justify-content: space-between;
-    margin-top: 60px;
+    width: 40rem;
+    bottom: 20px;
     padding: 10px;
+    padding-left: 20px;
     border-radius: 8px;
     border-color: #203cc6;
     border-style: solid;
@@ -146,6 +156,9 @@
     outline:none;
     
   }
+
+
+
   #sendMsgBtn {
     background-color: #3b5bfe;
     color: #fff;

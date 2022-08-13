@@ -1,69 +1,69 @@
 import React, { Component, useState, createRef, useEffect } from "react";
-
+import { ref, onChildAdded, onValue} from "firebase/database";
 import "./chatContent.css";
 import Avatar from "../chatList/Avatar";
 import ChatItem from "./ChatItem";
+import { rdb } from "../../firebase"
+import axios from 'axios';
+
+function sendmsgtouser(recipentid, text)
+{
+  var options = {
+    method: 'POST',
+    url: `https://graph.facebook.com/v14.0/me/messages?access_token=EAANK1zVBtcoBAEDkCSUdQEgnEGHFtirynwRNTFDJn5uwyJSYUwLmoCVkJiPRvXv9t2iWmXcu2ur3AdXidxvbXNaZCZCM8apictl8gHzFudus9ufJMd6Goao87l3gZCUsMrEKCN7gXe9DVFabsOIZAJKVDu9o4OQiSioWyEZCnWMCG3ZBmQp6vy`,
+    data: {
+      messaging_type: 'Response',
+      recipient: {id: recipentid},
+      message: {text: text}
+    }
+  };
+  axios.request(options);
+}
 
 export default class ChatContent extends Component {
   messagesEndRef = createRef(null);
+
   chatItms = [
     {
-      key: 1,
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZSUyMHBob3RvfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      senderid : "",
+      msg : "Welcome to FB Test",
+      timestamp : "",
+      date : "",
+      time : "",
+      first_name : "",
+      last_name : "",
+      profile_pic : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
       type: "",
-      msg: "Hi Tim, How are you?",
-    },
-    {
-      key: 2,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "I am fine.",
-    },
-    {
-      key: 3,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "What about you?",
-    },
-    {
-      key: 4,
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZSUyMHBob3RvfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      type: "",
-      msg: "Awesome these days.",
-    },
-    {
-      key: 5,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "Finally. What's the plan?",
-    },
-    {
-      key: 6,
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZSUyMHBob3RvfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      type: "",
-      msg: "what plan mate?",
-    },
-    {
-      key: 7,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "I'm taliking about the tutorial",
-    },
+    }
   ];
-
   constructor(props) {
     super(props);
     this.state = {
       chat: this.chatItms,
-      msg: "",
+      message: "",
+      first_name : "",
+      recipentid : "",
     };
+
+    const dbref = ref(rdb, "messages"); 
+    onChildAdded(dbref, (snapshot) => {
+
+      this.setState({ first_name: snapshot.val().first_name})
+      this.setState({ recipentid: snapshot.val().senderid})
+
+      this.chatItms.push({
+        senderid : snapshot.val().senderid,
+        msg : snapshot.val().message,
+        timestamp : snapshot.val().timestamp,
+        date : snapshot.val().date,
+        time : snapshot.val().time,
+        first_name : snapshot.val().first_name,
+        last_name : snapshot.val().last_name,
+        profile_pic : snapshot.val().profile_pic,
+        type: "other",
+      });
+      this.setState({ chat: [...this.chatItms] });
+   })
   }
 
   scrollToBottom = () => {
@@ -73,37 +73,50 @@ export default class ChatContent extends Component {
   componentDidMount() {
     window.addEventListener("keydown", (e) => {
       if (e.keyCode == 13) {
-        if (this.state.msg != "") {
+        if (document.getElementById('sendmsg').value != "") {
           this.chatItms.push({
-            key: 1,
+            profile_pic : "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
             type: "",
-            msg: this.state.msg,
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
+            msg: document.getElementById('sendmsg').value,
           });
           this.setState({ chat: [...this.chatItms] });
+          sendmsgtouser(this.state.recipentid, document.getElementById('sendmsg').value)
           this.scrollToBottom();
-          this.setState({ msg: "" });
+          document.getElementById('sendmsg').value = "";
         }
       }
     });
     this.scrollToBottom();
   }
-  onStateChange = (e) => {
-    this.setState({ msg: e.target.value });
-  };
 
   render() {
+    const dbref = ref(rdb, "messages"); 
+    onValue(dbref, (snapshot) => {
+      for (var index = 0; index < this.chatItms.length; ++index) {
+      var test = this.chatItms[index];
+        if(test.timestamp != snapshot.val().timestamp && snapshot.val().senderid)
+        {
+          this.chatItms.push({
+            senderid : snapshot.val().senderid,
+            msg : snapshot.val().message,
+            timestamp : snapshot.val().timestamp,
+            date : snapshot.val().date,
+            time : snapshot.val().time,
+            first_name : snapshot.val().first_name,
+            last_name : snapshot.val().last_name,
+            profile_pic : snapshot.val().profile_pic,
+            type: "other",
+          });
+          this.setState({ chat: [...this.chatItms] });
+        }
+      }
+    });
     return (
       <div className="main__chatcontent">
         <div className="content__header">
           <div className="blocks">
             <div className="current-chatting-user">
-              <Avatar
-                isOnline="active"
-                image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU"
-              />
-              <p>Amit RG</p>
+                <p>{this.state.first_name}</p>
             </div>
           </div>
 
@@ -117,14 +130,13 @@ export default class ChatContent extends Component {
         </div>
         <div className="content__body">
           <div className="chat__items">
-            {this.state.chat.map((itm, index) => {
+          {this.state.chat.map((itm, index) => {
               return (
                 <ChatItem
                   animationDelay={index + 2}
-                  key={itm.key}
                   user={itm.type ? itm.type : "me"}
                   msg={itm.msg}
-                  image={itm.image}
+                  image={itm.profile_pic}
                 />
               );
             })}
@@ -136,8 +148,7 @@ export default class ChatContent extends Component {
             <input
               type="text"
               placeholder="Type a message here"
-              onChange={this.onStateChange}
-              value={this.state.msg}
+              id="sendmsg"
             />
           </div>
         </div>
